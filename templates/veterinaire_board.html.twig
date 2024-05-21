@@ -1,0 +1,139 @@
+{% extends 'base_board.html.twig' %}
+
+{% block title %}Espace Vétérinaire{% endblock %}
+
+{% block espace %}Espace Vétérinaire{% endblock %}
+
+{% block content1 %}
+
+<div class="row">
+    <div class="col-md-5 mx-auto"> 
+        <div class="container mt-5 border-custom">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="h4 title text-center"> - Commenter un habitat - </h4>
+                </div>
+                <div class="card-body">
+                    <form id="habitatForm" action="{{ path('enregistrer_habitat') }}" method="post">
+                        <div class="form-group mb-4">
+                            <label for="habitat">Habitat :</label>
+                            <select class="form-control" id="habitat" name="habitat" required>
+                            {#
+                                {% for habitat in habitats %}
+                                    <option value="{{ habitat.id }}">{{ habitat.nom }}</option>
+                                {% endfor %}
+                            #}
+                            </select>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="etatHabitat">État de l'habitat :</label>
+                            <textarea class="form-control" id="etatHabitat" name="etatHabitat" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="ameliorationHabitat">Besoin d'améliorations :</label>
+                            <select class="form-control" id="ameliorationHabitat" name="ameliorationHabitat" required>
+                                <option value="oui">Oui</option>
+                                <option value="non">Non</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Enregistrer</button>
+                    </form>
+                </div>
+            </div>    
+        </div>                
+    </div>
+    <div class="col-md-5 mx-auto"> 
+        <div class="container mt-5 border-custom">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="h4 title text-center"> - Rapport vétérinaire - </h4>
+                </div>
+                <div class="card-body">
+                    <form id="modifierRapport" {#action="{{ path('modifier_rapport', {'id': rapport_id}) }}"#} method="post">
+                        <div class="form-group mb-4">
+                            <label for="animal">Animal :</label>
+                            <select class="form-control" id="animal" name="animal">
+                            {#}
+                                {% for animal in animaux %}
+                                    <option value="{{ animal.animal_id }}">{{ animal.prenom }}</option>
+                                {% endfor %}
+                                #}
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-group mb-4">
+                                    <label for="etatAnimal">État de l'animal :</label>
+                                    <input type="text" class="form-control" id="etatAnimal" name="etatAnimal" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="datePassage">Date de passage :</label>
+                                    <input type="date" class="form-control" id="datePassage" name="datePassage" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="form-group mb-4">
+                                    <label for="typeNourriture">Type de nourriture :</label>
+                                    <input type="text" class="form-control" id="typeNourriture" name="typeNourriture" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="quantite">Quantité : (en grammes)</label>
+                                    <input type="number" class="form-control" id="quantite" name="quantite" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="detailAnimal">Détail de l'animal : (facultatif)</label>
+                            <textarea class="form-control" id="detailAnimal" name="detailAnimal" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Modifier</button>
+                    </form>
+
+                </div>
+            </div>    
+        </div>                
+    </div>
+</div>
+<div class="container mt-5 mb-5 border-custom">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="h4 title text-center">- Historique de la consommation de nourriture par animal -</h4>
+        </div>
+        <div class="card-body">
+            <form id="foodHistoryForm" action="{{ path('afficher_historique_nourriture') }}" method="get">
+                <div class="form-group mb-4">
+                    <label for="animalSelection">Sélectionnez un animal :</label>
+                    <select class="form-control" id="animalSelection" name="animalSelection">
+                        {#{% for animal in animaux %}
+                            <option value="{{ animal.animal_id }}">{{ animal.prenom }}</option>
+                        {% endfor %}#}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Afficher l'historique</button>
+            </form>
+            <div class="table-responsive mt-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type de nourriture</th>
+                            <th>Quantité (en grammes)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#{% for consommation in historiqueNourriture %}
+                            <tr>
+                                <td>{{ consommation.date }}</td>
+                                <td>{{ consommation.type_nourriture }}</td>
+                                <td>{{ consommation.quantite }}</td>
+                            </tr>
+                        {% endfor %}#}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>            
+</div>
+
+{% endblock %}

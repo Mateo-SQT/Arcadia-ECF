@@ -1,0 +1,55 @@
+<?php
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use PDO;
+
+class RapportController extends AbstractController
+{
+    /**
+     * @Route("/enregistrer-rapport", name="enregistrer_rapport", methods={"GET", "POST"})
+     */
+    public function enregistrerRapport(Request $request): Response
+    {
+        // Connexion à la base de données avec PDO
+        $pdo = new PDO('mysql:host=localhost;dbname=arcadia', 'root', '');
+
+        // Récupérer les données pour le premier input (animal) depuis la base de données
+        $stmt = $pdo->query("SELECT * FROM animal");
+        $animaux = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Traitement du formulaire s'il est soumis
+        if ($request->isMethod('POST')) {
+            // Récupérer les données du formulaire
+            $animal = $request->request->get('animal');
+            $etatAnimal = $request->request->get('etatAnimal');
+            $datePassage = $request->request->get('datePassage');
+            $typeNourriture = $request->request->get('typeNourriture');
+            $quantite = $request->request->get('quantite');
+            $detailAnimal = $request->request->get('detailAnimal');
+
+            // Préparation de la requête SQL pour l'insertion des données
+            $stmt = $pdo->prepare("INSERT INTO rapport_veterinaire (animal_id, date, etat, detail, type_nourriture, quantite) VALUES (?, ?, ?, ?, ?, ?)");
+            $result = $stmt->execute([$animal, $datePassage, $etatAnimal, $detailAnimal, $typeNourriture, $quantite]);
+
+            if ($result) {
+                // Ajouter un message flash pour succès
+                $this->addFlash('success', 'Le rapport vétérinaire a été enregistré avec succès !');
+            } else {
+                // Ajouter un message flash pour erreur
+                $this->addFlash('error', 'Une erreur s\'est produite lors de l\'enregistrement du rapport vétérinaire. Veuillez réessayer.');
+            }
+
+            // Rediriger vers une autre page ou actualiser la page actuelle
+            return $this->redirectToRoute('veterinaire_board');
+        }
+
+        // Passer les animaux à la vue Twig pour affichage dans le formulaire
+        return $this->render('veterinaire_board', [
+            'animaux' => $animaux,
+        ]);
+    }
+}

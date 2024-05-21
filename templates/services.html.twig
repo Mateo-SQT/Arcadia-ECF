@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Arcadia - Services{% endblock %}
+
+{% block brand %}SERVICES{% endblock %}
+
+{% block content %} 
+        <div class="container mt-5 mb-5 slide-from-top">
+            <p class="text-center">
+                Entrez en immersion ! <br>
+                Explorez nos habitats animaliers avec votre guide, visitez le zoo à bord de notre petit train et
+                régalez-vous dans nos espaces de restauration.
+                Une expérience inoubliable pour toute la famille !
+            </p>
+        </div>
+        <br>
+        <hr class="separateur">
+        <br>
+        <div class="container mt-5 mb-5 ">
+            <div class="row">
+                <div class="col-md-6 text-center slide-left">
+                    <div class="centered-text">
+                        <div class="col">
+                            <h2>Nos espaces de restauration</h2>
+                            <br>
+                            <p>Une expérience culinaire unique lors de votre visite au zoo ! <br> Plongez dans
+                                l'ambiance
+                                exotique du Jungle Café, goûtez aux saveurs authentiques du Safari Bistro ou savourez
+                                des plats délicieux au Wildlife Grill.
+                                <br>
+                                Des menus variés dans des environnements
+                                captivants vous attendent pour compléter votre journée inoubliable.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 slide-right">
+                    <img src="{{ asset('images/restauration.jpeg')}}" alt="Image" class="img-fluid d-block mx-auto custom-img">
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr class="separateur">
+        <br>
+        <div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-6 text-center mb-4 mb-md-0 slide-left">
+                    <img src="{{ asset('images/enfants.jpg')}}" alt="Image" class="img-fluid d-block mx-auto custom-img">
+                </div>
+                <div class="col-md-6 text-center align-self-center slide-right">
+                    <div>
+                        <h2>Les visites guidées</h2>
+                        <br>
+                        <p>Avec Maxime Leclerc - Spécialité : Ornithologie et Écologie des Milieux Naturels et Sarah
+                            Dubois - Spécialité : Herpétologie et Conservation des Espèces Menacées.
+                            <br>
+                            Participez a des visites guidées pour percer les secrets des reptiles et de la faune sauvage
+                            !
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr class="separateur">
+        <br>
+        <div class="container mt-5 mb-5 ">
+            <div class="row">
+                <div class="col-md-6 text-center slide-left">
+                    <div class="centered-text">
+                        <div class="col">
+                            <h2>Les visites en petit train</h2>
+                            <br>
+                            <p>Montez à bord de notre petit train pour une visite passionnante du zoo ! Profitez d'un
+                                voyage confortable à travers les différents habitats de nos animaux, des lions
+                                majestueux aux singes espiègles.
+                                <br>
+                                Une façon agréable et instructive de découvrir la
+                                diversité de la vie sauvage, parfaite pour toute la famille !
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 slide-right">
+                    <img src="{{ asset('images/petit-train.JPG')}}" alt="Image" class="img-fluid d-block mx-auto custom-img">
+                </div>
+            </div>
+        </div>
+        <br>
+{% endblock %}
+

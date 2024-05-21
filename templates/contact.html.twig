@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Arcadia - contact{% endblock %}
+
+{% block brand %}CONTACT{% endblock %}
+
+
+{% block content %} 
+
+<div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-6 slide-left">
+                    <div class="col">
+                        <h3 class="h3 text-center mb-5">Donnez-nous votre avis :</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="avisForm" action="{{ path('ajouter_avis') }}" method="post">
+                                    <div class="form-group">
+                                        <label for="exampleInputPseudo">Votre Pseudonyme :</label>
+                                        <input type="text" class="form-control" id="exampleInputPseudo" name="pseudo"
+                                            placeholder="Entrez votre pseudo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputAvis">Votre avis :</label>
+                                        <textarea class="form-control" id="inputAvis" name="commentaire" rows="6" maxlength="500"
+                                            placeholder="Rédigez votre avis"></textarea>
+                                        <small id="Textarea1Help" class="form-text text-muted">Maximum 500
+                                            caractères</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-custom text-white" data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="Le personnel du Zoo se chargera de publier votre avis.">Envoyer</button>
+                                    {% for message in app.flashes('success') %}
+                                        <div class="alert alert-success" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+
+                                    {% for message in app.flashes('error') %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 slide-right">
+                    <h3 class="h3 text-center mb-5">Contactez-nous :</h3>
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="contactForm" method="post" action="{{ path('contact_submit') }}">
+                                <div class="form-group">
+                                    <label for="inputEmail">Votre adresse mail :</label>
+                                    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="@gmail.com" required>
+                                    <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre email avec qui que ce soit.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputTitre">Titre :</label>
+                                    <input type="text" name="title" class="form-control" id="inputTitre" placeholder="Sujet du message" maxlength="100" required>
+                                    <small id="MessageHelp" class="form-text text-muted">Maximum 100 caractères</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputMessage1">Message :</label>
+                                    <textarea class="form-control" name="message" id="inputMessage1" rows="3" placeholder="Rédigez votre message" required></textarea>
+                                    <small id="Message1Help" class="form-text text-muted">Pas de limite de caractères</small>
+                                </div>
+                                <button type="submit" id="submit" class="btn btn-custom text-white">Envoyer</button>
+                                {% for message in app.flashes('success') %}
+                                <div class="alert alert-success">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                                {% for message in app.flashes('error') %}
+                                <div class="alert alert-danger">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="separateur">
+        <br>
+        <div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-6 text-center mb-4 mb-md-0 slide-left">
+                    <br>
+                    <h5> Les horaires d'ouvertures peuvent variées suivant les jours fériés, les week-ends et les fêtes
+                        de fin d'année.</h5>
+                    <h5> Nous proposons des horaires spéciaux suivant les évènements se déroulant dans notre parc.</h5>
+                </div>
+                <div class="col-md-6 text-center align-self-center slide-right">
+                    <div>
+                        <div class="horaires">
+                            <h3>Horaires d'ouverture</h3>
+                            <br>
+                                {% if horaires is defined %}
+                                <ul class="list-unstyled">
+                                    {% for jour, horaire in horaires %}
+                                        <li>{{ jour }} - {% if horaire.ferme %}Fermé{% else %}{{ horaire.ouverture }} - {{ horaire.fermeture }}{% endif %}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <p>Aucun horaire disponible.</p>
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

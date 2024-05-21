@@ -1,17 +1,270 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Arcadia - Bienvenue{% endblock %}</title>
+    
+    {% block stylesheet %}
+        <link rel="icon" href="{{ asset('images/favicon.ico')}}" type="image/x-icon">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('homepage') }}"><img src="{{ asset('images/LOGO - ARCADIA.png')}}" alt="Logo-Arcadia"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'homepage' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'servicepage' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('servicepage') }}">Services</a>
+                    </li>
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'habitatspage' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('habitatspage') }}">Habitats</a>
+                    </li>
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'contactpage' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('contactpage') }}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" data-toggle="tooltip" data-placement="bottom"
+                        title="Réservé au personnel du Zoo" class="btn btn-custom text-white"
+                        onclick="window.location.href='{{ path('connexionpage') }}'">Connexion</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        {% if showbrand %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="image-container">
+                    <img src="{{ asset('images/background-p.jpg')}}" class="img-fluid" alt="Responsive image">
+                    <h1 id="title" class="h1 text-center"><b>{% block brand %}ARCADIA{% endblock %}</b></h1>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% block content %}
+        <div class="container mt-5 mb-5 slide-from-top">
+            <h4 class="h4 text-center">"Découvrez la nature, préservez l'avenir !"</h4>
+            <br>
+            <p class="text-center">
+                Bienvenue à Arcadia, le zoo où la nature est reine. Près de la forêt de Brocéliande. <br>
+                Explorez nos habitats uniques, de la savane à la jungle en
+                passant par les mystérieux marais, abritant une diversité étonnante d'animaux. <br>
+                Chez nous, l'écologie est primordiale. Nous garantissons le bien-être de nos pensionnaires grâce à des
+                habitats naturels et des soins
+                adaptés. <br>
+                Plongez dans une aventure immersive, découvrez la beauté de la faune et soutenez notre engagement
+                envers la préservation de notre planète.
+            </p>
+        </div>
+        <section class="section">
+            <div class="container mt-5 mb-5 text-center ">
+                <h4 class="h4 text-center">Traversez les différents habitats présents dans notre ZOO :</h4>
+                <br>
+                <div class="row">
+                    <div class="col mx-auto slide-left">
+                        <div class="card mx-auto text-bg-dark mb-5" style="width: 20rem;">
+                            <img src="{{ asset('images/savane.jpg')}}" class="card-img" alt="Savane" style="height: 10rem;">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title">Y découvrir : <br> les lions, les éléphants, les girafes,
+                                    les zèbres,
+                                    les
+                                    Gazelles</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><b>La savane</b><br>Une vaste étendue d'herbes hautes, d'arbustes
+                                    dispersés et d'arbres épars, caractérisée par des saisons sèches et humides. Cet habitat
+                                    ouvert abrite une variété d'animaux adaptés.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mx-auto">
+                        <div class="card mx-auto text-bg-dark mb-5" style="width: 20rem;">
+                            <img src="{{ asset('images/jungle.jpg')}}" class="card-img" alt="Jungle" style="height: 10rem;">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title text-white">Y découvrir :<br> les singes, les oiseaux
+                                    exotiques, les
+                                    anacondas (et autres reptiles), le jaguar, les paresseux</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><b>La Jungle</b><br>Une dense forêt tropicale caractérisée par une
+                                    végétation luxuriante et des arbres touffus. L'humidité est élevée et la canopée
+                                    crée un
+                                    habitat ombragé.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mx-auto slide-right">
+                        <div class="card mx-auto text-bg-dark" style="width: 20rem;">
+                            <img src="{{ asset('images/marais.jpg')}}" class="card-img" alt="Marais" style="height: 10rem;">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title text-white">Y découvrir :<br> les crocodiles, les alligators, les
+                                    tortues, hérons
+                                    et aigrettes</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><b>Zones humides</b><br> Caractérisées par des sols gorgés d'eau,
+                                    une
+                                    végétation
+                                    luxuriante telle que des roseaux, des nénuphars et des arbustes, ainsi que la
+                                    présence
+                                    fréquente d'étendues d'eau.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container mt-5 mb-2 text-center">
+            <h4 class="h4 text-center">Echantillon d'activités proposées et petite galerie de nos animaux :</h4>
+            <br>
+            <div class="container mt-2">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/animaux/lion.jpg')}}" alt="Photo 1" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/animaux/singe.jpg')}}" alt="Photo 2" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/animaux/gazelle.jpg')}}" alt="Photo 3" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/animaux/crocodile.jpg')}}" alt="Photo 4" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/guide.jpeg')}}" alt="Photo 5" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/animaux/aigrette.jpg')}}" alt="Photo 6" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/restauration.jpeg')}}" alt="Photo 4" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/animaux/oiseau-exotique.jpg')}}" alt="Photo 5" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="photo">
+                            <img src="{{ asset('images/petit-train.JPG')}}" alt="Photo 6" class="img-fluid">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <br>
+            <br>
+            <div class="container text-center">
+                <h4 class="h4 mb-5">Les avis de nos visiteurs !</h4>
+                
+            </div>
+            <br>
+        </section>
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    </main>
+    {% if showbrand %}
+    <footer class="text-white text-center mt-auto">
+        <div id="container-footer" class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="mb-4">Suivez-nous :</h4>
+                    <ul class="list-inline social-icons">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f fa-lg text-white"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-lg text-white"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram fa-lg text-white"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-lg text-white"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ asset('images/LOGO - ARCADIA.png')}}" alt="Logo" id="img-footer" class="img-fluid mb-4">
+                    <p>&copy; 2024 Arcadia. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endif %}
+
+    {% block script %}
+    <!-- Bootstrap JS et les dépendances jQuery -->
+    <script src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    {% endblock %}
+</body>
+
 </html>

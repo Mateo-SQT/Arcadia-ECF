@@ -1,0 +1,576 @@
+{% extends 'base_board.html.twig' %}
+
+{% block title %}Espace Administrateur{% endblock %}
+
+{% block espace %}Espace Administrateur{% endblock %}
+
+{% block content1 %}
+
+ <div class="row">
+    <div class="col-md-5 mx-auto"> 
+        <div class="container mt-5 mb-5">
+            <ul class="nav nav-tabs" id="animalTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark" id="addAnimal-tab" data-toggle="tab" href="#addAnimal" role="tab" aria-controls="addAnimal" aria-selected="true">Ajouter un animal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="modifyAnimal-tab" data-toggle="tab" href="#modifyAnimal" role="tab" aria-controls="modifyAnimal" aria-selected="false">Modifier un animal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="deleteAnimal-tab" data-toggle="tab" href="#deleteAnimal" role="tab" aria-controls="deleteAnimal" aria-selected="false">Supprimer un animal</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="animalTabsContent">
+                <!-- Ajouter un animal -->
+                <div class="tab-pane fade show active" id="addAnimal" role="tabpanel" aria-labelledby="addAnimal-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">- Ajouter un animal -</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="ajouter-animal-form" {#action="{{ path('ajouter_animal') }}"#} method="post">
+                                <div class="form-group mb-4">
+                                    <label for="animalName">Nom de l'animal :</label>
+                                    <input type="text" class="form-control" id="animalName" name="animalName" placeholder="Entrez le nom de l'animal" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="animalState">État de l'animal :</label>
+                                    <input type="text" class="form-control" id="animalState" name="animalState" placeholder="Entrez l'état de l'animal" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="animalRace">Race de l'animal :</label>
+                                    <select class="form-control" id="animalRace" name="animalRace" required>
+                                    {#
+                                        {% for race in races %}
+                                            <option value="{{ race.race_id }}">{{ race.nom }}</option>
+                                        {% endfor %}#}
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="animalHabitat">Habitat de l'animal :</label>
+                                    <select class="form-control" id="animalHabitat" name="animalHabitat" required>
+                                    {#
+                                        {% for habitat in habitats %}
+                                            <option value="{{ habitat.habitat_id }}">{{ habitat.nom }}</option>
+                                        {% endfor %}#}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Ajouter</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Modifier un animal -->
+                <div class="tab-pane fade" id="modifyAnimal" role="tabpanel" aria-labelledby="modifyAnimal-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Modifier un animal</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-modify-animal" {#action="{{ path('modifier_animal') }}"#} method="post">
+                                <div class="form-group mb-4">
+                                    <label for="animalToModify">Animal à modifier :</label>
+                                    <select class="form-control" id="animalToModify" name="animalToModify" required>
+                                    {#
+                                        {% for animal in animals %}
+                                            <option value="{{ animal.animal_id }}">{{ animal.prenom }}</option>
+                                        {% endfor %}#}
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newAnimalName">Nouveau nom de l'animal :</label>
+                                    <input type="text" class="form-control" id="newAnimalName" name="newAnimalName" placeholder="Entrez le nouveau nom de l'animal" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newAnimalState">Nouvel état de l'animal :</label>
+                                    <input type="text" class="form-control" id="newAnimalState" name="newAnimalState" placeholder="Entrez le nouvel état de l'animal" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newAnimalRace">Nouvelle race de l'animal :</label>
+                                    <select class="form-control" id="newAnimalRace" name="newAnimalRace" required>
+                                    {#
+                                        {% for race in races %}
+                                            <option value="{{ race.race_id }}">{{ race.nom }}</option>
+                                        {% endfor %} #}
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newAnimalHabitat">Nouvel habitat de l'animal :</label>
+                                    <select class="form-control" id="newAnimalHabitat" name="newAnimalHabitat" required>
+                                      {#  {% for habitat in habitats %}
+                                            <option value="{{ habitat.habitat_id }}">{{ habitat.nom }}</option>
+                                        {% endfor %}#}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Modifier</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Supprimer un animal -->
+                <div class="tab-pane fade" id="deleteAnimal" role="tabpanel" aria-labelledby="deleteAnimal-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Supprimer un animal</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-delete-animal" {#action="{{ path('supprimer_animal') }}"#} method="post">
+                                <div class="form-group mb-4">
+                                    <label for="animalToDelete">Animal à supprimer :</label>
+                                    <select class="form-control" id="animalToDelete" name="animalToDelete" required>
+                                        {#{% for animal in animals %}
+                                            <option value="{{ animal.animal_id }}">{{ animal.prenom }}</option>
+                                        {% endfor %}#}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5 mb-5">
+            <ul class="nav nav-tabs" id="userTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark" id="addUser-tab" data-toggle="tab" href="#addUser" role="tab" aria-controls="addUser" aria-selected="true">Ajouter un utilisateur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="deleteUser-tab" data-toggle="tab" href="#deleteUser" role="tab" aria-controls="deleteUser" aria-selected="false">Supprimer un utilisateur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="modifyUser-tab" data-toggle="tab" href="#modifyUser" role="tab" aria-controls="modifyUser" aria-selected="false">Modifier un utilisateur</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="userTabsContent">
+                <!-- Ajouter un utilisateur -->
+                <div class="tab-pane fade show active" id="addUser" role="tabpanel" aria-labelledby="addUser-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Ajouter un utilisateur</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-add-user">
+                                <div class="form-group mb-4">
+                                    <label for="newUsername">Nom d'utilisateur :</label>
+                                    <input type="text" class="form-control" id="newUsername" name="newUsername" placeholder="Entrez le nom d'utilisateur" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newNom">Nom :</label>
+                                    <input type="text" class="form-control" id="newNom" name="newNom" placeholder="Entrez le nom de l'utilisateur" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newPrenom">Prénom :</label>
+                                    <input type="text" class="form-control" id="newPrenom" name="newPrenom" placeholder="Entrez le prénom de l'utilisateur" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newRole">Rôle :</label>
+                                    <select class="form-control" id="newRole" name="newRole" required>
+                                        <!-- Options remplies dynamiquement depuis la base de données -->
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Ajouter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Supprimer un utilisateur -->
+                <div class="tab-pane fade" id="deleteUser" role="tabpanel" aria-labelledby="deleteUser-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Supprimer un utilisateur</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-delete-user">
+                                <div class="form-group mb-4">
+                                    <label for="userToDelete">Utilisateur à supprimer :</label>
+                                    <select class="form-control" id="userToDelete" name="userToDelete" required>
+                                        <!-- Options remplies dynamiquement depuis la base de données -->
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modifier un utilisateur -->
+                <div class="tab-pane fade" id="modifyUser" role="tabpanel" aria-labelledby="modifyUser-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Modifier un utilisateur</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-modify-user">
+                                <div class="form-group mb-4">
+                                    <label for="userToModify">Utilisateur à modifier :</label>
+                                    <select class="form-control" id="userToModify" name="userToModify" required>
+                                        <!-- Options remplies dynamiquement depuis la base de données -->
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="modifiedUsername">Nouveau nom d'utilisateur :</label>
+                                    <input type="text" class="form-control" id="modifiedUsername" name="modifiedUsername" placeholder="Entrez le nouveau nom d'utilisateur" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="modifiedNom">Nouveau nom :</label>
+                                    <input type="text" class="form-control" id="modifiedNom" name="modifiedNom" placeholder="Entrez le nouveau nom de l'utilisateur" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="modifiedPrenom">Nouveau prénom :</label>
+                                    <input type="text" class="form-control" id="modifiedPrenom" name="modifiedPrenom" placeholder="Entrez le nouveau prénom de l'utilisateur" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="modifiedRole">Nouveau rôle :</label>
+                                    <select class="form-control" id="modifiedRole" name="modifiedRole" required>
+                                        <!-- Options remplies dynamiquement depuis la base de données -->
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Modifier</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5 mb-5">
+            <ul class="nav nav-tabs" id="serviceTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark" id="modifyService-tab" data-toggle="tab" href="#modifyService" role="tab" aria-controls="modifyService" aria-selected="true">Modifier un service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="addService-tab" data-toggle="tab" href="#addService" role="tab" aria-controls="addService" aria-selected="false">Ajouter un service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="deleteService-tab" data-toggle="tab" href="#deleteService" role="tab" aria-controls="deleteService" aria-selected="false">Supprimer un service</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="serviceTabsContent">
+                <!-- Modifier un service -->
+                <div class="tab-pane fade show active" id="modifyService" role="tabpanel" aria-labelledby="modifyService-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Modifier un service</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-modify-service" action="{{ path('modifier_service') }}" method="post" enctype="multipart/form-data">
+                                <div class="form-group mb-4">
+                                    <label for="serviceToModify">Service à modifier :</label>
+                                    <select class="form-control" id="serviceToModify" name="serviceToModify" required>
+                                        <!-- Options remplies dynamiquement depuis la base de données -->
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newServiceText">Nouveau texte du service :</label>
+                                    <input type="text" class="form-control" id="newServiceText" name="newServiceText" placeholder="Entrez le nouveau texte du service" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newServiceImage">Nouvelle image du service :</label>
+                                    <input type="file" class="form-control-file" id="newServiceImage" name="newServiceImage">
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Modifier</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ajouter un service -->
+                <div class="tab-pane fade" id="addService" role="tabpanel" aria-labelledby="addService-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Ajouter un service</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-add-service" action="{{ path('ajouter_service') }}" method="post" enctype="multipart/form-data">
+                                <div class="form-group mb-4">
+                                    <label for="newServiceText">Texte du nouveau service :</label>
+                                    <input type="text" class="form-control" id="newServiceText" name="newServiceText" placeholder="Entrez le texte du nouveau service" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newServiceImage">Image du nouveau service :</label>
+                                    <input type="file" class="form-control-file" id="newServiceImage" name="newServiceImage">
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Ajouter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supprimer un service -->
+                <div class="tab-pane fade" id="deleteService" role="tabpanel" aria-labelledby="deleteService-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Supprimer un service</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-delete-service" {#action="{{ path('supprimer_service', { 'id': service.id }) }}"#} method="post">
+                                <div class="form-group mb-4">
+                                    <label for="serviceToDelete">Service à supprimer :</label>
+                                    <select class="form-control" id="serviceToDelete" name="serviceToDelete" required>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 mx-auto"> 
+        <div class="container mt-5 mb-5">
+            <div class="container mt-5 mb-5">
+                <ul class="nav nav-tabs" id="habitatTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active text-dark" id="addHabitat-tab" data-toggle="tab" href="#addHabitat" role="tab" aria-controls="addHabitat" aria-selected="true">Ajouter un habitat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="deleteHabitat-tab" data-toggle="tab" href="#deleteHabitat" role="tab" aria-controls="deleteHabitat" aria-selected="false">Supprimer un habitat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="modifyHabitat-tab" data-toggle="tab" href="#modifyHabitat" role="tab" aria-controls="modifyHabitat" aria-selected="false">Modifier un habitat</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="habitatTabsContent">
+                    <!-- Ajouter un habitat -->
+                    <div class="tab-pane fade show active" id="addHabitat" role="tabpanel" aria-labelledby="addHabitat-tab">
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h4 class="h4 title text-center">Ajouter un habitat</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="form-add-habitat">
+                                    <div class="form-group mb-4">
+                                        <label for="newHabitatName">Nom de l'habitat :</label>
+                                        <input type="text" class="form-control" id="newHabitatName" name="newHabitatName" placeholder="Entrez le nom de l'habitat" required>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="newHabitatDescription">Description de l'habitat :</label>
+                                        <textarea class="form-control" id="newHabitatDescription" name="newHabitatDescription" rows="3" placeholder="Entrez la description de l'habitat"></textarea>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="newHabitatComment">Commentaire sur l'habitat :</label>
+                                        <textarea class="form-control" id="newHabitatComment" name="newHabitatComment" rows="3" placeholder="Entrez un commentaire sur l'habitat"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Ajouter</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Supprimer un habitat -->
+                    <div class="tab-pane fade" id="deleteHabitat" role="tabpanel" aria-labelledby="deleteHabitat-tab">
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h4 class="h4 title text-center">Supprimer un habitat</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="form-delete-habitat">
+                                    <div class="form-group mb-4">
+                                        <label for="habitatToDelete">Habitat à supprimer :</label>
+                                        <select class="form-control" id="habitatToDelete" name="habitatToDelete" required>
+                                        {#    {% for habitat in habitats %}
+                                                <option value="{{ habitat['habitat_id'] }}">{{ habitat['nom'] }}</option>
+                                           {% endfor %} #}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Supprimer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modifier un habitat -->
+                    <div class="tab-pane fade" id="modifyHabitat" role="tabpanel" aria-labelledby="modifyHabitat-tab">
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h4 class="h4 title text-center">Modifier un habitat</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="form-modify-habitat">
+                                    <div class="form-group mb-4">
+                                        <label for="habitatToModify">Habitat à modifier :</label>
+                                        <select class="form-control" id="habitatToModify" name="habitatToModify" required>
+                                            <!-- Options remplies dynamiquement depuis la base de données -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="newHabitatName">Nouveau nom de l'habitat :</label>
+                                        <input type="text" class="form-control" id="newHabitatName" name="newHabitatName" placeholder="Entrez le nouveau nom de l'habitat" required>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="newHabitatDescription">Nouvelle description de l'habitat :</label>
+                                        <textarea class="form-control" id="newHabitatDescription" name="newHabitatDescription" rows="3" placeholder="Entrez la nouvelle description de l'habitat"></textarea>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="newHabitatComment">Nouveau commentaire sur l'habitat :</label>
+                                        <textarea class="form-control" id="newHabitatComment" name="newHabitatComment" rows="3" placeholder="Entrez un nouveau commentaire sur l'habitat"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Modifier</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5 mb-5">
+            <div class="card">
+                <div class="card-header">
+                <h4 class="h4 title text-center">Modifier les horaires</h4>
+                </div>
+                <div class="card-body">
+                <form action="{{ path('save_hours') }}" method="post">
+                    <!-- Lundi -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="lundi_ouverture">Lundi - Ouverture:</label>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="lundi_ouverture" name="lundi_ouverture">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="lundi_fermeture" name="lundi_fermeture">
+                            <input type="checkbox" id="lundi_ferme" name="lundi_ferme">
+                            <label class="form-check-label" for="lundi_ferme">Fermé</label>
+                        </div>
+                    </div>
+                    <!-- Mardi -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="mardi_ouverture">Mardi - Ouverture:</label>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="mardi_ouverture" name="mardi_ouverture">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="mardi_fermeture" name="mardi_fermeture">
+                            <input type="checkbox" id="mardi_ferme" name="mardi_ferme">
+                            <label class="form-check-label" for="mardi_ferme">Fermé</label>
+                        </div>
+                    </div>
+                    <!-- Mercredi -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="mercredi_ouverture">Mercredi - Ouverture:</label>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="mercredi_ouverture" name="mercredi_ouverture">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="mercredi_fermeture" name="mercredi_fermeture">
+                            <input type="checkbox" id="mercredi_ferme" name="mercredi_ferme">
+                            <label class="form-check-label" for="mercredi_ferme">Fermé</label>
+                        </div>
+                    </div>
+                    <!-- Jeudi -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="jeudi_ouverture">Jeudi - Ouverture:</label>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="jeudi_ouverture" name="jeudi_ouverture">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="jeudi_fermeture" name="jeudi_fermeture">
+                            <input type="checkbox" id="jeudi_ferme" name="jeudi_ferme">
+                            <label class="form-check-label" for="jeudi_ferme">Fermé</label>
+                        </div>
+                    </div>
+                    <!-- Vendredi -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="vendredi_ouverture">Vendredi - Ouverture:</label>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="vendredi_ouverture" name="vendredi_ouverture">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="vendredi_fermeture" name="vendredi_fermeture">
+                            <input type="checkbox" id="vendredi_ferme" name="vendredi_ferme">
+                            <label class="form-check-label" for="vendredi_ferme">Fermé</label>
+                        </div>
+                    </div>
+                    <!-- Samedi -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="samedi_ouverture">Samedi - Ouverture:</label>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="samedi_ouverture" name="samedi_ouverture">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="samedi_fermeture" name="samedi_fermeture">
+                            <input type="checkbox" id="samedi_ferme" name="samedi_ferme">
+                            <label class="form-check-label" for="samedi_ferme">Fermé</label>
+                        </div>
+                    </div>
+                    <!-- Dimanche -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="dimanche_ouverture">Dimanche - Ouverture:</label>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="dimanche_ouverture" name="dimanche_ouverture">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="time" class="form-control" id="dimanche_fermeture" name="dimanche_fermeture">
+                            <input type="checkbox" id="dimanche_ferme" name="dimanche_ferme">
+                            <label class="form-check-label" for="dimanche_ferme">Fermé</label>
+                        </div>
+                    </div>
+                    <!-- Répétez cette structure pour chaque jour de la semaine -->
+                    <button type="submit" class="btn btn-custom btn-sm text-white mt-3">Enregistrer</button>
+                </form>
+            </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="h4 title text-center">Consulter les rapports vétérinaires</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ path('afficher_rapports_veterinaires') }}" method="GET">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="animal">Sélectionner un animal :</label>
+                                <select class="form-control" id="animal" name="animal">
+                                    <!-- Options remplies dynamiquement depuis la base de données -->
+                                    {#{% for animal in animaux %}
+                                        <option value="{{ animal.animal_id }}">{{ animal.prenom }}</option>
+                                    {% endfor %}#}
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="date">Filtrer par date :</label>
+                                <input type="date" class="form-control" id="date" name="date">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-custom btn-sm text-white mt-3">Consulter</button>
+                    </form>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="h4 title text-center">Nombre de vues par Habitat</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Habitats</th>
+                                        <th>Nombre de vues</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Les lignes seront remplies dynamiquement depuis la base de données -->
+                                    <tr>
+                                        <td>Savane</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jungle</td>
+                                        <td>75</td>
+                                    </tr>
+                                    <!-- Ajoutez d'autres lignes pour les autres animaux -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

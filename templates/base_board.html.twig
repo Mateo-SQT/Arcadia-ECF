@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Espace Employé{% endblock %}</title>
+    {% block stylesheet %}
+        <link rel="icon" href="{{ asset('images/favicon.ico')}}" type="image/x-icon">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand"><img src="{{ asset('images/LOGO - ARCADIA.png')}}" alt="Logo-Arcadia"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto"> 
+                    <li class="nav-item active">
+                        <a class="nav-link">{% block espace %}Espace Employé{% endblock %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" data-toggle="tooltip" data-placement="bottom"
+                            title="Réservé au personnel du Zoo" class="btn btn-custom text-white"
+                            onclick="window.location.href='{{ path('connexionpage') }}'">Se déconnecter</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+       
+    <main>
+        {% if showbrand %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="image-container">
+                    <img src="{{ asset('images/background-p.jpg')}}" class="img-fluid" alt="Responsive image">
+                    <h1 id="title" class="h1 text-center"><b>Bienvenue dans votre espace</b></h1>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="container mt-5 mb-2 slide-from-top">
+            <h2 class="h4 text-center"></h2>
+            <hr class="separateur">
+        </div>
+        {% block content1 %}
+        <div class="row">
+            <div class="col-md-5 mx-auto"> <!-- AVIS CLIENTS-->
+                <div class="container mt-5 mb-5 border-custom">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4 text-center">- Les avis clients -</h4>
+                        </div>
+                        <div class="body">
+                        <section class="avis-section">
+                            <div class="avis-reçus">
+                                <p>Avis Reçus :</p>
+                                <ul class="list-group" id="avis-reçus-list">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="w-100" style="word-wrap: break-word;">
+                                        {#{% for avis in avis %}
+                                        <tr>
+                                        <td>{{ avis.id }}</td>
+                                        <td>{{ avis.pseudo }}</td>
+                                        <td>{{ avis.commentaire }}</td>
+                                        <td>{{ avis.isVisible ? 'Oui' : 'Non' }}</td>
+                                        </tr>
+                                         {% endfor %}#}
+                                        </span>
+                                        <div class="d-flex align-items-center">
+                                            <button type="button"
+                                                class="btn btn-custom-outline btn-sm mr-2 delete-confirm ">Supprimer</button>
+                                            <button type="button"
+                                                class="btn btn-custom btn-sm text-white ml-2 move-to-ligne">Valider</button>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="w-100" style="word-wrap: break-word;">Avisant 1 - "Très satisfait
+                                            du service client, rapide et
+                                            efficace."</span>
+                                        <div class="d-flex align-items-center">
+                                            <button type="button"
+                                                class="btn btn-custom-outline btn-sm mr-2 delete-confirm">Supprimer</button>
+                                            <button type="button"
+                                                class="btn btn-custom btn-sm text-white ml-2 move-to-ligne">Valider</button>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="w-100" style="word-wrap: break-word;">Avisant 1 - "Très satisfait
+                                            du service client, rapide et
+                                            efficace."</span>
+                                        <div class="d-flex align-items-center">
+                                            <button type="button"
+                                                class="btn btn-custom-outline btn-sm mr-2 delete-confirm">Supprimer</button>
+                                            <button type="button"
+                                                class="btn btn-custom btn-sm text-white ml-2 move-to-ligne">Valider</button>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="w-100" style="word-wrap: break-word;">Avisant 1 - "Très satisfait
+                                            du service client, rapide et
+                                            efficace."</span>
+                                        <div class="d-flex align-items-center">
+                                            <button type="button"
+                                                class="btn btn-custom-outline btn-sm mr-2 delete-confirm">Supprimer</button>
+                                            <button type="button"
+                                                class="btn btn-custom btn-sm text-white ml-2 move-to-ligne">Valider</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+                            <div class="avis-en-ligne">
+                                <p> Avis Déjà En Ligne :</p>
+                                <ul class="list-group" id="avis-en-ligne-list">
+                                </ul>
+                            </div>
+                        </section> 
+                        </div>   
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 mx-auto"> 
+                <div class="container mt-5 border-custom">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">- Enregistrement de la consommation de nourriture -</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ path('enregistrer_consommation') }}" method="POST" id="foodForm">
+                                <div class="form-group mb-4">
+                                    <label for="animal">Animal :</label>
+                                    <select class="form-control" id="animal" name="animal">
+                                        <option value="chien">Chien</option>
+                                        <option value="chat">Chat</option>
+                                        <option value="oiseau">Oiseau</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-group mb-4">
+                                            <label for="date">Date :</label>
+                                            <input type="date" class="form-control" id="date" name="date" required>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label for="heure">Heure :</label>
+                                            <input type="time" class="form-control" id="heure" name="heure" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-group mb-4">
+                                            <label for="typeNourriture">Type de nourriture :</label>
+                                            <input type="text" class="form-control" id="typeNourriture" name="typeNourriture" required>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label for="quantite">Quantité : (en grammes)</label>
+                                            <input type="number" class="form-control" id="quantite" name="quantite" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="container mt-5 mb-5">
+            <ul class="nav nav-tabs" id="serviceTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark" id="modifyService-tab" data-toggle="tab" href="#modifyService" role="tab" aria-controls="modifyService" aria-selected="true">Modifier un service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="addService-tab" data-toggle="tab" href="#addService" role="tab" aria-controls="addService" aria-selected="false">Ajouter un service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="deleteService-tab" data-toggle="tab" href="#deleteService" role="tab" aria-controls="deleteService" aria-selected="false">Supprimer un service</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="serviceTabsContent">
+                <!-- Modifier un service -->
+                <div class="tab-pane fade show active" id="modifyService" role="tabpanel" aria-labelledby="modifyService-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Modifier un service</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-modify-service" action="{{ path('modifier_service') }}" method="post" enctype="multipart/form-data">
+                                <div class="form-group mb-4">
+                                    <label for="serviceToModify">Service à modifier :</label>
+                                    <select class="form-control" id="serviceToModify" name="serviceToModify" required>
+                                        <!-- Options remplies dynamiquement depuis la base de données -->
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newServiceText">Nouveau texte du service :</label>
+                                    <input type="text" class="form-control" id="newServiceText" name="newServiceText" placeholder="Entrez le nouveau texte du service" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newServiceImage">Nouvelle image du service :</label>
+                                    <input type="file" class="form-control-file" id="newServiceImage" name="newServiceImage">
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Modifier</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ajouter un service -->
+                <div class="tab-pane fade" id="addService" role="tabpanel" aria-labelledby="addService-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Ajouter un service</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-add-service" action="{{ path('ajouter_service') }}" method="post" enctype="multipart/form-data">
+                                <div class="form-group mb-4">
+                                    <label for="newServiceText">Texte du nouveau service :</label>
+                                    <input type="text" class="form-control" id="newServiceText" name="newServiceText" placeholder="Entrez le texte du nouveau service" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="newServiceImage">Image du nouveau service :</label>
+                                    <input type="file" class="form-control-file" id="newServiceImage" name="newServiceImage">
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Ajouter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supprimer un service -->
+                <div class="tab-pane fade" id="deleteService" role="tabpanel" aria-labelledby="deleteService-tab">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="h4 title text-center">Supprimer un service</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-delete-service" {#action="{{ path('supprimer_service', { 'id': service.id }) }}"#} method="post">
+                                <div class="form-group mb-4">
+                                    <label for="serviceToDelete">Service à supprimer :</label>
+                                    <select class="form-control" id="serviceToDelete" name="serviceToDelete" required>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-custom btn-sm text-white ml-2">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        {% endblock %}
+    </main>
+    {% if showbrand %}
+    <footer class="text-white text-center mt-auto">
+        <div id="container-footer" class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Uniquement réservé au personnel autorisé.</p>
+                </div>
+                <div class="col-md-6">
+                    <p>&copy; 2024 Arcadia. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endif %}
+    {% block script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script>
+        /* Script avis*/
+        document.addEventListener('DOMContentLoaded', function () {
+            const moveButtons = document.querySelectorAll('.move-to-ligne');
+            const deleteButtons = document.querySelectorAll('.delete-confirm');
+            const ligneList = document.getElementById('avis-en-ligne-list');
+
+            moveButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const listItem = this.closest('.list-group-item');
+                    listItem.querySelector('.delete-confirm').classList.remove('mr-2');
+                    ligneList.appendChild(listItem);
+                    listItem.querySelector('.move-to-ligne').remove();
+                });
+            });
+
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const listItem = this.closest('.list-group-item');
+                    if (confirm('Voulez-vous vraiment supprimer cet avis ?')) {
+                        listItem.remove();
+                    }
+                });
+            });
+        });
+    
+        /* Script animal*/
+        $(document).ready(function () {
+            $('#foodForm').submit(function (e) {
+                e.preventDefault(); // Empêche le formulaire de se soumettre normalement
+
+                // Récupération des données du formulaire
+                const formData = {
+                    animal: $('#animal').val(),
+                    date: $('#date').val(),
+                    heure: $('#heure').val(),
+                    typeNourriture: $('#typeNourriture').val(),
+                    quantite: $('#quantite').val()
+                };
+
+                // Envoi des données via AJAX
+                $.ajax({
+                    type: 'POST', // Méthode HTTP
+                    url: 'votre-url-de-backend', // URL de votre backend où envoyer les données
+                    data: formData, // Les données à envoyer
+                    success: function (response) {
+                        // Si la requête réussit, afficher un message de succès dans la console
+                        console.log('Données envoyées avec succès !');
+                        // Vous pouvez également afficher un message de succès à l'utilisateur ici si nécessaire
+                    },
+                    error: function (error) {
+                        // En cas d'erreur lors de la requête AJAX, afficher un message d'erreur dans la console
+                        console.error('Erreur lors de l\'envoi des données :', error);
+                        // Vous pouvez également afficher un message d'erreur à l'utilisateur ici si nécessaire
+                    }
+                });
+            });
+        });
+    </script>
+
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Arcadia - Habitats{% endblock %}
+
+{% block brand %}HABITATS{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5 text-center ">
+    <h4 class="h4 text-center">Traversez les différents habitats présents dans notre ZOO</h4>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card mx-auto mb-5" style="width: 30rem;">
+                <img src="{{ asset('images/savane.jpg')}}" alt="Savane" style="height: 15rem;">
+                <div class="card-body">
+                    <h4 class="card-text mb-3"><b>La Savane</b></h4>
+                    <button class="btn btn-custom btn-sm text-white mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#description-collapse-1" aria-expanded="false" aria-controls="description-collapse-1">
+                        Description
+                    </button>
+                    <div class="collapse mx-2" id="description-collapse-1">
+                        Description de l'habitat
+                    </div>
+                    <button class="btn btn-custom btn-sm text-white mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#animals-collapse-1" aria-expanded="false" aria-controls="animals-collapse-1">
+                        Animaux
+                    </button>
+                    <div class="collapse mx-2" id="animals-collapse-1">
+                        Les animaux
+                    </div>
+                </div>                                                                      
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mx-auto mb-5" style="width: 30rem;">
+                <img src="{{ asset('images/jungle.jpg')}}" alt="Savane" style="height: 15rem;">
+                <div class="card-body">
+                    <h4 class="card-text mb-3"><b>La Jungle</b></h4>
+                    <button class="btn btn-custom btn-sm text-white mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#description-collapse-2" aria-expanded="false" aria-controls="description-collapse-2">
+                        Description
+                    </button>
+                    <div class="collapse mx-2" id="description-collapse-2">
+                        Description de l'habitat
+                    </div>
+                    <button class="btn btn-custom btn-sm text-white mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#animals-collapse-2" aria-expanded="false" aria-controls="animals-collapse-2">
+                        Animaux
+                    </button>
+                    <div class="collapse mx-2" id="animals-collapse-2">
+                        Les animaux
+                    </div>
+                </div>                                                                      
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mx-auto mb-5" style="width: 30rem;">
+                <img src="{{ asset('images/marais.jpg')}}" alt="Savane" style="height: 15rem;">
+                <div class="card-body">
+                    <h4 class="card-text mb-3"><b>Les Zones Humides</b></h4>
+                    <button class="btn btn-custom btn-sm text-white mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#description-collapse-3" aria-expanded="false" aria-controls="description-collapse-3">
+                        Description
+                    </button>
+                    <div class="collapse mx-2" id="description-collapse-3">
+                        Description de l'habitat
+                    </div>
+                    <button class="btn btn-custom btn-sm text-white mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#animals-collapse-3" aria-expanded="false" aria-controls="animals-collapse-3">
+                        Animaux
+                    </button>
+                    <div class="collapse mx-2" id="animals-collapse-3">
+                        Les animaux
+                    </div>
+                </div>                                                                      
+            </div>
+        </div>
+    </div>                                 
+</div>  
+
+{% endblock %}

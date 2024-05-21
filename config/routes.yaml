@@ -3,3 +3,109 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+
+homepage:
+    path: /
+    controller: 'App\Controller\HomeController::index'
+
+servicepage:
+    path: /servicepage
+    controller: 'App\Controller\HomeController::servicepage'
+
+contactpage:
+    path: /contactpage
+    controller: 'App\Controller\HomeController::contactpage'
+
+habitatspage:
+    path: /habitatspage
+    controller: 'App\Controller\HomeController::habitatspage'
+
+connexionpage:
+    path: /connexionpage
+    controller: 'App\Controller\HomeController::connexionpage'
+
+base_board:
+    path: /base_board
+    controller: 'App\Controller\HomeController::base_board'
+
+veterinaire_board:
+    path: /veterinaire_board
+    controller: 'App\Controller\HomeController::veterinaire_board'
+
+admin_board:
+    path: /admin_board
+    controller: 'App\Controller\HomeController::admin_board'
+
+ajouter_avis:
+    path: /ajouter-avis
+    controller: 'App\Controller\AvisController::ajouterAvis'
+    methods: ['POST']
+
+afficher_avis:
+    path: /afficher-avis
+    controller: 'App\Controller\AvisController::afficherAvis'
+    methods: ['GET']
+
+
+save_hours:
+    path: /save-hours
+    controller: 'App\Controller\HoraireController::saveHours'
+    methods: ['POST']
+
+
+
+enregistrer_consommation:
+    path: '/enregistrer_consommation'
+    controller: App\Controller\ConsommationController::enregistrer_consommation'
+    methods: ['POST']
+
+
+charger_habitats:
+    path: /charger-habitats
+    controller: 'App\Controller\HabitatController::chargerHabitats'
+    methods : ['POST']
+
+
+contact_submit:
+    path: /contact
+    controller: 'App\Controller\ContactController::contact'
+    methods: ['POST']
+
+modifier_service:
+    path: /modifier-service
+    controller: 'App\Controller\ServiceController::modifierService'
+    methods: ['POST']
+
+ajouter_service:
+    path: /ajouter-service
+    controller: 'App\Controller\ServiceController::ajouterService'
+    methods: ['POST']
+
+
+supprimer_service:
+    path: /service/{id}/supprimer
+    controller: 'App\Controller\ServiceController::supprimerService'
+    methods: ['DELETE']
+
+enregistrer_habitat:
+    path: /enregistrer-habitat
+    controller: 'App\Controller\HabitatController::enregistrerHabitat'
+    methods: ['GET', 'POST']
+
+modifier_rapport:
+    path: /modifier-rapport/{id}
+    controller: 'App\Controller\RapportController::modifierRapport'
+    methods: ['GET', 'POST']
+
+afficher_historique_nourriture:
+    path: /afficher-historique-nourriture
+    controller: 'App\Controller\FoodHistoryController::afficherHistoriqueNourriture'
+    methods: ['GET']
+
+afficher_rapports_veterinaires:
+  path: '/afficher-rapports-veterinaires'
+  controller: 'App\Controller\RapportVeterinaireController::afficherRapportsVeterinaires'
+  methods: ['GET']
+
+
